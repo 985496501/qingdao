@@ -1,0 +1,17 @@
+spring:
+  mvc:
+    logRequestDetails: true
+  devtools:
+    add-properties: false
+
+  redis:
+    database: 15
+    host: 115.28.136.9
+    port: 6379
+    password: jpkj$123-
+    timeout: 300ms
+
+logging:
+  level:
+    com.self.boot: debug
+    web: debug
