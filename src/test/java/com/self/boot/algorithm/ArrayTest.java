@@ -139,12 +139,44 @@ public class ArrayTest {
             return nums;
         }
 
-        // 双向队列 必须
-        Deque<Integer> deque = new LinkedList<>();
         int[] r = new int[nums.length - k + 1];
-        // 先找到第一个最大的值 前k个  0==>k-1
-        for (int i = 0; i < nums.length; i++) {
+        // 双向队列 必须
+        // 一个队列存储值的索引 让其由大到小排序
+        // 首先一个过程是滑动窗口 right++ 让其不断到右边界
+        // 到达右边界的时候这时候 应该让队列的头的值(max) 到咱们的返回数组中去是吧
+        // 那么就要求每次遍历数组的时候 如果队列中的值要 就要弹出去 只保留相对较大的值的索引
+        // 如果是递减数组那么, 队列的
+        Deque<Integer> deque = new LinkedList<>();
 
+        // 第一过程让窗口形成
+//        int i;
+//        for (i = 0; i < k; i++) {
+//            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
+//                deque.pollLast();
+//            }
+//
+//            deque.offer(i);
+//        }
+//
+//        // i = k - 1
+//        r[0] = nums[deque.peek()];
+
+        // k
+        for (int i = 0; i < nums.length; i++) {
+            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) {
+                deque.pollLast();
+            }
+
+            deque.offer(i);
+            // 如果队列首的已经不在当前窗口内就要移除把
+            if (deque.peek() <= i - k) {
+                deque.poll();
+            }
+
+            // k相当于第二个数 i = 1的情况 i - k + 1 i>k
+            if (i >= k - 1) {
+                r[i - k + 1] = nums[deque.peek()]; // ?????? has bugs.
+            }
         }
 
         return r;
