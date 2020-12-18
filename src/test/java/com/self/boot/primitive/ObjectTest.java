@@ -5,6 +5,23 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.TimeUnit;
 
 public class ObjectTest {
+
+    public static boolean objEqual(Object o1, Object o2) {
+        if (o1 == null)
+            return o2 == null;
+        else
+            return o1.equals(o2);
+    }
+
+
+    public static void main(String[] args) {
+        Object o = new Object();
+        boolean b = ObjectTest.objEqual(o, o);
+        System.out.println(b);
+    }
+
+
+
     @Test
     public void objectClassTest() {
         A a = new A();
