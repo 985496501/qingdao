@@ -2,9 +2,7 @@ package com.self.boot.algorithm;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 public class ArrayTest {
 
@@ -17,14 +15,17 @@ public class ArrayTest {
 //        System.out.println(removeElement(b, 1));
 
 //        int[] n = {1, 3, -1, -3, 5, 3, 6, 7};
-        int[] n = {7, 2, 4};
+        int[] n = {1,2,3,1};
 //        int[] ints = productExceptSelf(n);
 //        System.out.println(Arrays.toString(ints));
 
         // [1,3,-1,-3,5,3,6,7]
         //3
-        int[] ints1 = maxSlidingWindow(n, 2);
-        System.out.println(Arrays.toString(ints1));
+//        int[] ints1 = maxSlidingWindow(n, 2);
+//        System.out.println(Arrays.toString(ints1));
+
+
+        System.out.println(containsDuplicateOptimised(n));
     }
 
     // nums = [0,0,1,1,1,2,2,3,3,4]   0, 1, 2, 3, 4
@@ -235,9 +236,34 @@ public class ArrayTest {
         return r;
     }
 
+    // 优化算法
+    public boolean containsDuplicateOptimised(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return false;
+        }
+
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            int origin = set.size();
+            set.add(nums[i]);
+            if (origin == set.size()) {
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
+
+    // 至少出现两次为true timeout Time_C = O(n*n)
+    public boolean containsDuplicate(int[] nums) {
+        return Arrays.stream(nums).distinct().count() != nums.length;
+    }
+
 
     // 二分查找
-    private int binarySearch(int[] a, int target) {
+    public int binarySearch(int[] a, int target) {
         if (a.length == 0) {
             return -1;
         }
