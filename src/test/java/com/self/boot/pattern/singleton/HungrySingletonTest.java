@@ -1,4 +1,4 @@
-package com.self.boot.pattern;
+package com.self.boot.pattern.singleton;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +16,8 @@ public class HungrySingletonTest {
         this.name = name;
     }
 
+
+    // get
     @Getter
     private static final HungrySingletonTest INSTANCE = new HungrySingletonTest("superman");
 }
