@@ -1,15 +1,40 @@
 spring:
+  application:
+    name: boot
+
+  # 打印mvc log 开发打开 线上关闭 WebMvcProperties.java 解析
   mvc:
     logRequestDetails: true
-  devtools:
-    add-properties: false
 
+
+  # 监控app的各个生命周期上线 开发默认不打开
+  # 上线就要打开监控
+  devtools:
+    add-properties: true
+
+  # todo: 学会看源码 找这块的源码debug 看看这块怎么初始化的  2020/12/21
+  # mysql连接池配置 simple 默认使用的是 HikariPool log-print
+  datasource:
+    # 最快连接池
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8
+    username: root
+    password: root
+
+
+  # redis配置 默认使用 lettuce 连接驱动
   redis:
     database: 15
     host: 115.28.136.9
     port: 6379
     password: jpkj$123-
     timeout: 300ms
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
 
 logging:
   level:

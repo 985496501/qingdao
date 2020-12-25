@@ -1,7 +1,7 @@
 package com.self.boot.redis;
 
 import com.self.boot.common.redis.RedisService;
-import com.self.boot.constant.CacheKeyConst;
+import com.self.boot.common.constant.CacheKeyConst;
 import com.self.boot.dto.coupon.CouponDTO;
 import com.self.boot.dto.order.OrderDTO;
 import com.self.boot.module.order.service.OrderService;

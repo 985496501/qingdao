@@ -28,7 +28,7 @@
         <maven-javadoc.version>3.1.0</maven-javadoc.version>
 
         <netty4.version>4.1.56.Final</netty4.version>
-
+        <mybatis.version>2.1.3</mybatis.version>
 
         <cobertura-version>2.7</cobertura-version>
         <maven-surefire-version>2.20</maven-surefire-version>
@@ -42,6 +42,7 @@
         <jacoco-version>0.8.2</jacoco-version>
 
         <swagger-version>3.0.0</swagger-version>
+        <fastJson-version>1.2.73</fastJson-version>
     </properties>
 
     <dependencies>
@@ -66,6 +67,12 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastJson-version}</version>
         </dependency>
 
         <dependency>
@@ -95,11 +102,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.mybatis.spring.boot</groupId>-->
-<!--            <artifactId>mybatis-spring-boot-starter</artifactId>-->
-<!--            <version>2.1.3</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -109,11 +116,11 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

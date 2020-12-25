@@ -15,7 +15,7 @@ public class ArrayTest {
 //        System.out.println(removeElement(b, 1));
 
 //        int[] n = {1, 3, -1, -3, 5, 3, 6, 7};
-        int[] n = {1,2,3,1};
+        int[] n = {1, 2, 3, 1, 1};
 //        int[] ints = productExceptSelf(n);
 //        System.out.println(Arrays.toString(ints));
 
@@ -24,8 +24,8 @@ public class ArrayTest {
 //        int[] ints1 = maxSlidingWindow(n, 2);
 //        System.out.println(Arrays.toString(ints1));
 
-
-        System.out.println(containsDuplicateOptimised(n));
+        System.out.println("majority: " + majority(n));
+        System.out.println("" + containsDuplicateOptimised(n));
     }
 
     // nums = [0,0,1,1,1,2,2,3,3,4]   0, 1, 2, 3, 4
@@ -386,5 +386,106 @@ public class ArrayTest {
 
 
         return c;
+    }
+
+
+    /**
+     * Proof: > n/3  观察最大就俩  大于n/2的有且仅有一个 大于n/3的最多仅有两个
+     * 大于 n/k 的有几个呢 证明 max k-1
+     * assume that: k个众数
+     * m>n/k>0, n, k 都是正整数
+     * k * m > k * n/k = n   ===>> exist at most k-1个数
+     * 数学的证明基础
+     *
+     * 时间复杂度O(1) once loop
+     * 空间复杂度O(n) constant
+     *
+     * problem: 判断的条件过多 也不至于很快
+     */
+    public List<Integer> majorityElement(int[] nums) {
+        // nums not null
+        if (nums.length < 2) {
+            return Collections.singletonList(nums[0]);
+        }
+
+        int candidate0 = 0;
+        int count0 = 0;
+        int candidate1 = 0;
+        int count1 = 0;
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (candidate0 == nums[i]) {
+                count0++;
+                continue;
+            }
+
+            if (candidate1 == nums[i]) {
+                count1++;
+                continue;
+            }
+
+            if (count0 == 0) {
+                candidate0 = nums[i];
+                count0++;
+                continue;
+            }
+
+            if (count1 == 0) {
+                candidate1 = nums[i];
+                count1++;
+                continue;
+            }
+
+            count0--;
+            count1--;
+        }
+
+        count0 = 0; count1 = 0;
+        for (int num : nums) {
+            if (num == candidate0) {
+                count0++;
+            } else if (num == candidate1){
+                // else if
+                count1++;
+            }
+        }
+
+        if (count0 > nums.length / 3) {
+            list.add(candidate0);
+        }
+
+        if (count1> nums.length / 3) {
+            list.add(candidate1);
+        }
+
+        return list;
+    }
+
+    // 选择众数 摩尔投票法 你可以假设数组是非空的，并且给定的数组总是存在多数元素
+    // 这个是最基本的摩尔投票法
+    //
+
+    /**
+     * 最基本的摩尔投票法
+     *
+     * 前提是 一定存在这样一个数 是大于n/2的
+     */
+    public int majority(int[] nums) {
+        int digit = nums[0];
+        int count = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (digit == nums[i]) {
+                count++;
+            } else {
+                if (count > 0) {
+                    count--;
+                } else {
+                    digit = nums[i];
+                    count++;
+                }
+            }
+        }
+
+        return digit;
     }
 }

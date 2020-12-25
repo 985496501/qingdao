@@ -1,4 +1,4 @@
-package com.self.boot.validation;
+package com.self.boot.common.validation;
 
 public interface Group {
     interface Add {}

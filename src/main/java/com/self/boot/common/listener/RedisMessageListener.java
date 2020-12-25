@@ -1,7 +1,7 @@
 package com.self.boot.common.listener;
 
-import com.self.boot.constant.CacheKeyConst;
-import com.self.boot.util.KeyUtil;
+import com.self.boot.common.constant.CacheKeyConst;
+import com.self.boot.common.util.CacheKeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.listener.KeyExpirationEventMessageListener;
@@ -32,7 +32,7 @@ public class RedisMessageListener extends KeyExpirationEventMessageListener {
         System.out.println(cacheEntry + "=============>>>>>" + AUTO_INCREMENT.getAndIncrement());
 
         if (cacheEntry.startsWith(CacheKeyConst.COUPON_EXPIRED_KEY)) {
-            log.info("优惠券id: {}", KeyUtil.getCacheId(cacheEntry));
+            log.info("优惠券id: {}", CacheKeyUtil.getCacheId(cacheEntry));
             log.info("根据优惠券id修改数据库该优惠券的使用状态等");
         }
     }

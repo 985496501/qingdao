@@ -1,23 +1,23 @@
 package com.self.boot.pattern.singleton;
 
-import lombok.Getter;
-import lombok.Setter;
+import org.junit.jupiter.api.Test;
 
 /**
  * 这就是饿汉式的单例模式
  * one minute to finish hungry singleton pattern example.
+ * typically defined as follows.
+ * static public instance invokes instance-method
  */
 public class HungrySingletonTest {
-    @Getter
-    @Setter
-    private String name;
+    public static final HungrySingletonTest INSTANCE = new HungrySingletonTest();
 
-    private HungrySingletonTest (String name) {
-        this.name = name;
+    @Override
+    public String toString() {
+        return "hello hungry singleton instance";
     }
 
-
-    // get
-    @Getter
-    private static final HungrySingletonTest INSTANCE = new HungrySingletonTest("superman");
+    @Test
+    public void innerTest() {
+        System.out.println(HungrySingletonTest.INSTANCE.toString());
+    }
 }

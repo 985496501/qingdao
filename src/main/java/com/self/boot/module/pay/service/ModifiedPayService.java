@@ -1,22 +1,15 @@
 package com.self.boot.module.pay.service;
 
-import java.math.BigDecimal;
-
 /**
  * 抽象支付功能
+ * 调用第三方的支付不会被spring管理
+ * 但是提供了一个支付支持类 统一提供支持
  */
-public interface PayService {
+public interface ModifiedPayService {
     /**
      * 支付
      */
     Object pay(Object obj);
-
-    /**
-     * 查询余额
-     *
-     * @return money
-     */
-    BigDecimal queryBalance();
 
     /**
      * 提现

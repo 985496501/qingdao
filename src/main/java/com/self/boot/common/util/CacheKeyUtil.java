@@ -1,16 +1,19 @@
-package com.self.boot.util;
+package com.self.boot.common.util;
 
-import com.self.boot.constant.CacheKeyConst;
+import com.self.boot.common.constant.CacheKeyConst;
 import org.springframework.util.StringUtils;
 
-public abstract class KeyUtil {
+/**
+ * redis key 操作的工具类
+ */
+public abstract class CacheKeyUtil {
 
     public static String combineCacheEntry(String cacheKeyConst, Long id) {
         return cacheKeyConst + id;
     }
 
     public static Long getCacheId(String cacheEntry) {
-        if (StringUtils.isEmpty(cacheEntry)) {
+        if (StringUtils.hasLength(cacheEntry)) {
             return null;
         }
 

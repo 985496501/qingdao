@@ -1,4 +1,4 @@
-package com.self.boot.util;
+package com.self.boot.common.util;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;

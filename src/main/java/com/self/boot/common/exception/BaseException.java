@@ -1,4 +1,4 @@
-package com.self.boot.exception;
+package com.self.boot.common.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

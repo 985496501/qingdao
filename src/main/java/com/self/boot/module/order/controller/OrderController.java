@@ -1,7 +1,7 @@
 package com.self.boot.module.order.controller;
 
 import com.self.boot.dto.order.OrderDTO;
-import com.self.boot.exception.BaseException;
+import com.self.boot.common.exception.BaseException;
 import com.self.boot.module.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

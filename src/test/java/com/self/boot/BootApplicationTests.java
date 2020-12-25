@@ -5,14 +5,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.self.boot.custom.MyCustomFunc;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,15 +18,17 @@ import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 @Slf4j
-@SpringBootTest
+//@SpringBootTest
 class BootApplicationTests {
-    @Autowired
-    private MyCustomFunc myCustomFunc;
 
     @Test
-    public void annotationImportTest() {
-        myCustomFunc.greet();
+    public void annotationContextTest() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+
     }
+
+
+
 
 
     @Test

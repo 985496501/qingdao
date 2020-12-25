@@ -1,9 +1,10 @@
 server:
   port: 8080
+  servlet:
+    context-path: /boot
+
 
 spring:
-  application:
-    name: boot
   profiles:
     active: dev
 

@@ -11,7 +11,38 @@ import java.util.List;
  * A的状态发生变化 要通知bc
  */
 public class ObserverTest {
-    //
+    /**
+     * 　　　　    事件机制是基于观察者模式实现的。主要包括几下4个角色：
+     * <p>
+     * 　　　　　　事件源：触发事件的主体
+     * <p>
+     * 　　　　　　事件：事件本身，指的是EventObject中的source，具体可以是任何数据（包括事件源），用来传递数据
+     * <p>
+     * 　　　　　　事件监听器：当事件发生时，负责对事件的处理
+     * <p>
+     * 　　　　　　事件环境：整个事件所处的上下文，对整个事件提供支持
+     */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void obTest() {
@@ -21,7 +52,6 @@ public class ObserverTest {
 
         a.notifyList();
     }
-
 
 
     static class A {
@@ -50,7 +80,7 @@ public class ObserverTest {
 
     static class B implements Subscriber {
 
-        public  B () {
+        public B() {
             System.out.println("我是B我要借钱了");
         }
 
@@ -72,7 +102,6 @@ public class ObserverTest {
             System.out.println("别人通知我要还我钱了C");
         }
     }
-
 
 
 }
