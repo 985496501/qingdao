@@ -1,4 +1,4 @@
-package com.self.boot.algorithm;
+package com.self.boot.algorithm.base;
 
 import org.junit.jupiter.api.Test;
 

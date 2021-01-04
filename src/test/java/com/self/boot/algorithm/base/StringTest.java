@@ -1,8 +1,10 @@
-package com.self.boot.algorithm;
+package com.self.boot.algorithm.base;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class StringTest {
 
