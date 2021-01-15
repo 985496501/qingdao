@@ -1,4 +1,4 @@
-package com.self.boot.conf;
+package com.self.boot.common.conf;
 
 import okhttp3.OkHttpClient;
 import org.springframework.context.annotation.Bean;

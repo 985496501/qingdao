@@ -43,6 +43,8 @@
 
         <swagger-version>3.0.0</swagger-version>
         <fastJson-version>1.2.73</fastJson-version>
+
+        <flowable-version>6.4.1</flowable-version>
     </properties>
 
     <dependencies>
@@ -185,6 +187,12 @@
             <version>${netty4.version}</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.flowable</groupId>
+            <artifactId>flowable-spring-boot-starter</artifactId>
+            <version>6.4.1</version>
+        </dependency>
 
 
     </dependencies>

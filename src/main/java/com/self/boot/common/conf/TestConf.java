@@ -1,4 +1,4 @@
-package com.self.boot.conf;
+package com.self.boot.common.conf;
 
 import com.self.boot.dto.order.OrderDTO;
 import org.springframework.context.annotation.Bean;

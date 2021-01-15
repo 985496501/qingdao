@@ -56,6 +56,11 @@
 
 
 
+#### flowable
+1. boot集成flowable的业务逻辑
+
+
+
 #### curl
 1. -v 详细信息  -X POST 指定请求方法
 2. 规范 用于文件的长传下载

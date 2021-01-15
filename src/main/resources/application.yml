@@ -1,7 +1,7 @@
 server:
   port: ${DEV_PORT:8080}
-  servlet:
-    context-path: /boot
+#  servlet:
+#    context-path: /boot
 
 
 spring:

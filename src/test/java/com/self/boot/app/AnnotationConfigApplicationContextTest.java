@@ -1,6 +1,6 @@
 package com.self.boot.app;
 
-import com.self.boot.conf.TestConf;
+import com.self.boot.common.conf.TestConf;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

@@ -1,4 +1,4 @@
-package com.self.boot.conf;
+package com.self.boot.common.conf;
 
 import com.self.boot.common.result.WrapperReturnValueHandler;
 import com.self.boot.interceptor.AuthInterceptor;

@@ -1,4 +1,4 @@
-package com.self.boot.conf;
+package com.self.boot.common.conf;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
