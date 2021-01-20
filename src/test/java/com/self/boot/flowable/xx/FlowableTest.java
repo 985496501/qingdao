@@ -1,4 +1,4 @@
-package com.self.boot.flowable;
+package com.self.boot.flowable.xx;
 
 import com.self.boot.dto.flowable.DeploymentDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -51,6 +51,9 @@ public class FlowableTest {
      * 一次部署同时产生对应的流程定义记录  act_re_procdef 保存就是原生的xml数据信息 每次都会生成流程定义记录  但是会有版本号来约束
      * once starting process instance, merely use the latest version.
      * 标识我们定义的xml流程语言的就是 procdef 的key  [key.bpmn.xml]
+     *
+     *
+     * springboot 默认在classpath/processes/***.bpmn 文件只要不发布就自动运行
      */
     @Test
     public void deployXMLTest() {

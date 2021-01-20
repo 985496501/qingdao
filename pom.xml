@@ -45,9 +45,17 @@
         <fastJson-version>1.2.73</fastJson-version>
 
         <flowable-version>6.4.1</flowable-version>
+        <pager-version>5.1.10</pager-version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>${pager-version}</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>

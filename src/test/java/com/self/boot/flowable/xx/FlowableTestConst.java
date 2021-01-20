@@ -1,4 +1,4 @@
-package com.self.boot.flowable;
+package com.self.boot.flowable.xx;
 
 /**
  * @author: jinyun

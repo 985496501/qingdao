@@ -15,8 +15,11 @@ public class AnnotationConfigApplicationContextTest {
      */
     @Test
     public void configurationTest() {
-        AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext();
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext();
         //
-        acac.register(TestConf.class);
+        ac.register(TestConf.class);
+        ac.refresh();
+        TestConf bean = ac.getBean(TestConf.class);
+        assert bean != null;
     }
 }
