@@ -1,8 +1,7 @@
 package com.self.boot.common.flowable.vo;
 
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.Map;
 
@@ -13,6 +12,9 @@ import java.util.Map;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class CompleteTaskVo extends BaseProcessVo {
     /**
      * 任务参数 选填

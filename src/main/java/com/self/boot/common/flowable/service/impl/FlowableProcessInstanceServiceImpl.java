@@ -8,11 +8,13 @@ import com.self.boot.common.flowable.conf.FlowProcessDiagramGenerator;
 import com.self.boot.common.flowable.core.CommentEnum;
 import com.self.boot.common.flowable.core.FlowConstant;
 import com.self.boot.common.flowable.core.Query;
+import com.self.boot.common.flowable.core.SuspendState;
 import com.self.boot.common.flowable.dao.IFlowableProcessInstanceDao;
 import com.self.boot.common.flowable.service.BaseProcessService;
 import com.self.boot.common.flowable.service.IFlowableBpmnModelService;
 import com.self.boot.common.flowable.service.IFlowableProcessInstanceService;
 import com.self.boot.common.flowable.service.IFlowableTaskService;
+import com.self.boot.common.flowable.util.StrUtil;
 import com.self.boot.common.flowable.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.flowable.bpmn.constants.BpmnXMLConstants;
@@ -99,11 +101,14 @@ public class FlowableProcessInstanceServiceImpl extends BaseProcessService imple
 
     @Override
     public ProcessInstance startProcessInstanceByKey(StartProcessInstanceVo params) {
-        if (StringUtils.hasLength(params.getProcessDefinitionKey())
-                && StringUtils.hasLength(params.getBusinessKey())
-                && StringUtils.hasLength(params.getSystemSn())) {
+        if (StrUtil.allNotEmpty(params.getProcessDefinitionKey(), params.getBusinessKey(), params.getSystemSn())) {
             ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
                     .processDefinitionKey(params.getProcessDefinitionKey()).latestVersion().singleResult();
+
+//            List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery()
+//                    .processDefinitionKey(params.getProcessDefinitionKey()).latestVersion().list();
+//
+//            ProcessDefinition processDefinition = list.get(0);
             if (processDefinition != null && processDefinition.isSuspended()) {
                 throw new RuntimeException("改流程已经挂起");
             }
@@ -115,16 +120,21 @@ public class FlowableProcessInstanceServiceImpl extends BaseProcessService imple
              * 1.3、汇报线的参数设置
              */
             //1.1、设置提交人字段为空字符串让其自动跳过
-            params.getVariables().put(FlowConstant.FLOW_SUBMITTER_VAR, "");
+//            params.getVariables().put(FlowConstant.FLOW_SUBMITTER_VAR, "");
             //1.2、设置可以自动跳过
-            params.getVariables().put(FlowConstant.FLOWABLE_SKIP_EXPRESSION_ENABLED, true);
+//            params.getVariables().put(FlowConstant.FLOWABLE_SKIP_EXPRESSION_ENABLED, true);
+
+
+
             // TODO 1.3、汇报线的参数设置
+
             //2、当我们流程创建人和发起人
             String creator = params.getCreator();
             if (!StringUtils.hasLength(creator)) {
                 creator = params.getCurrentUserCode();
                 params.setCreator(creator);
             }
+
             //3.启动流程
             identityService.setAuthenticatedUserId(creator);
             ProcessInstance processInstance = runtimeService.createProcessInstanceBuilder()
@@ -139,7 +149,6 @@ public class FlowableProcessInstanceServiceImpl extends BaseProcessService imple
             this.addComment(params.getCurrentUserCode(), processInstance.getProcessInstanceId(),
                     CommentEnum.TJ.toString(), params.getFormName() + "提交");
             //5.TODO 推送消息数据
-
             return processInstance;
         } else {
             throw new RuntimeException("请填写 这三个字段 ProcessDefinitionKey,BusinessKey,SystemSn");
@@ -186,6 +195,7 @@ public class FlowableProcessInstanceServiceImpl extends BaseProcessService imple
         }
         //4. 获取bpmnModel对象
         BpmnModel bpmnModel = flowableBpmnModelService.getBpmnModelByProcessDefId(processDefinitionId);
+
         //5. 生成图片流
         InputStream inputStream = flowProcessDiagramGenerator.generateDiagram(bpmnModel, activeActivityIds, highLightedFlows);
         //6. 转化成byte便于网络传输
@@ -204,8 +214,8 @@ public class FlowableProcessInstanceServiceImpl extends BaseProcessService imple
     }
 
     @Override
-    public void suspendOrActivateProcessInstanceById(String processInstanceId, Integer suspensionState) {
-        if (suspensionState == 1) {
+    public void suspendOrActivateProcessInstanceById(String processInstanceId, SuspendState state) {
+        if (state == SuspendState.SUSPEND) {
             runtimeService.suspendProcessInstanceById(processInstanceId);
         } else {
             runtimeService.activateProcessInstanceById(processInstanceId);

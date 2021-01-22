@@ -10,6 +10,7 @@ import com.self.boot.common.flowable.dao.IFlowableTaskDao;
 import com.self.boot.common.flowable.service.BaseProcessService;
 import com.self.boot.common.flowable.service.IFlowableBpmnModelService;
 import com.self.boot.common.flowable.service.IFlowableTaskService;
+import com.self.boot.common.flowable.util.StrUtil;
 import com.self.boot.common.flowable.vo.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -401,8 +402,7 @@ public class FlowableTaskServiceImpl extends BaseProcessService implements IFlow
 
     @Override
     public String complete(CompleteTaskVo params) {
-        if (StringUtils.isNotBlank(params.getProcessInstanceId())
-                && StringUtils.isNotBlank(params.getTaskId())) {
+        if (StrUtil.allNotEmpty(params.getProcessInstanceId(), params.getTaskId())) {
             //1.查看当前任务是存在
             TaskEntity taskEntity = (TaskEntity) taskService.createTaskQuery().taskId(params.getTaskId()).singleResult();
             if (taskEntity != null) {

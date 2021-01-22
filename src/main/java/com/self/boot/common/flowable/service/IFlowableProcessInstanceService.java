@@ -2,6 +2,7 @@ package com.self.boot.common.flowable.service;
 
 import com.github.pagehelper.Page;
 import com.self.boot.common.flowable.core.Query;
+import com.self.boot.common.flowable.core.SuspendState;
 import com.self.boot.common.flowable.vo.*;
 import org.flowable.engine.runtime.ProcessInstance;
 
@@ -59,10 +60,10 @@ public interface IFlowableProcessInstanceService {
      * 激活流程定义
      *
      * @param processInstanceId 流程实例id
-     * @param suspensionState   2激活 1挂起
+     * @param state   2激活 1挂起
      * @return
      */
-    void suspendOrActivateProcessInstanceById(String processInstanceId, Integer suspensionState);
+    void suspendOrActivateProcessInstanceById(String processInstanceId, SuspendState state);
 
     /**
      * 终止流程

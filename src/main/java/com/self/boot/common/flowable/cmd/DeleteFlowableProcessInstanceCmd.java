@@ -20,8 +20,21 @@ import java.io.Serializable;
 public class DeleteFlowableProcessInstanceCmd implements Command<Void>, Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 流程实例id
+     */
     protected String processInstanceId;
+
+    /**
+     * 删除原因
+     */
     protected String deleteReason;
+
+    /**
+     * 是否级联删除 与该实例相关的其他记录 完全删除干净
+     * 缺省参数为： 不级联删除
+     */
     protected boolean cascade = false;
 
     public DeleteFlowableProcessInstanceCmd(String processInstanceId, String deleteReason) {
@@ -45,6 +58,7 @@ public class DeleteFlowableProcessInstanceCmd implements Command<Void>, Serializ
         if (processInstanceEntity == null) {
             throw new FlowableObjectNotFoundException("No process instance found for id '" + processInstanceId + "'", ProcessInstance.class);
         }
+
         if (processInstanceEntity.isDeleted()) {
             return null;
         }

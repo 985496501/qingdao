@@ -15,4 +15,6 @@ public interface HolidayProcessVariable {
     String DAYS = "days";
 
     String APPROVAL = "approval";
+
+    String TEAM_LEADER = "teamLeader";
 }

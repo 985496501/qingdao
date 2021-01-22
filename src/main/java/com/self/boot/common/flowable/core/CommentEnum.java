@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum CommentEnum {
+    APPLY("申请"),
     SP("审批"),
     BH("驳回"),
     CH("撤回"),

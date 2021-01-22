@@ -41,6 +41,9 @@ logging:
   level:
     com.self.boot: debug
     web: debug
+#    root: "debug"
+#    org.springframework.web: "debug"
+#    org.hibernate: "debug"
 
 flowable:
   async-executor-activate: false

@@ -43,7 +43,7 @@ public class DefinitionTest {
     @Test
     public void deployTest() {
         Deployment deployment = repositoryService.createDeployment()
-                .addClasspathResource("processes/holiday.bpmn20.xml")
+                .addClasspathResource("holiday.bpmn20.xml")
                 .name("请假")
                 .key("holiday")
                 .tenantId("01")

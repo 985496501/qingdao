@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             targetNamespace="http://www.flowable.org/processdef">
+
+    <!-- id=>procDefinitionKey  name=>procDefinitionName, 如果这个没有就默认是id -->
+    <!--  {processDefinitionKey}:{processDefinitionVersion}:{generated-id} act_re_deploy表的id生成策略  -->
+    <!-- version从1开始  每一次部署就自增1 -->
+
+
+    <!--流程定义 key[id]-->
+    <process id="holidayRequest" name="请假申请" isExecutable="true">
+        <!-- 流程开启节点 -->
+        <!-- event: catching throwing
+                start: always catching -->
+        <startEvent id="startEvent"/>
+
+        <!-- 流程[startEvent]节点到下一 用户任务节点[approveTask]的 连接线 -->
+        <sequenceFlow sourceRef="startEvent" targetRef="approveTask"/>
+
+        <!-- 定义的用户任务节点 key, 指定了候选人组 [candidateGroups] 关键字   这个是写死的 -->
+        <userTask id="approveTask" name="经理批准或驳回" flowable:candidateGroups="managers"/>
+
+        <!-- 连接线, 连接下一步排他网关 -->
+        <sequenceFlow sourceRef="approveTask" targetRef="decision"/>
+
+        <!-- 直接定义了一个排他网关 if 只会走一条 -->
+        <exclusiveGateway id="decision"/>
+
+        <!-- 定义的一条直线 这个线段上有判断逻辑 conditionExpression 是一个表达式 下一节点是 一个外部系统调用的  serviceTask -->
+        <sequenceFlow sourceRef="decision" targetRef="externalSystemCall">
+            <conditionExpression xsi:type="tFormalExpression">
+                <![CDATA[${approved}]]>
+            </conditionExpression>
+        </sequenceFlow>
+
+        <!-- 定义的一条直线 这个线段上有判断逻辑 conditionExpression 是一个表达式 下一节点是 一个外部系统调用的  serviceTask -->
+        <sequenceFlow  sourceRef="decision" targetRef="sendRejectionMail">
+            <conditionExpression xsi:type="tFormalExpression">
+                <![CDATA[${!approved}]]>
+            </conditionExpression>
+        </sequenceFlow>
+
+        <!-- 外部系统的调用的 服务任务 , 服务任务 绑定了一个 系统classpath下的一个类[全限定性类名] 用于反射生成对象并且调用方法 -->
+        <serviceTask id="externalSystemCall" name="业务系统"
+                     flowable:class="org.flowable.CallExternalSystemDelegate"/>
+        <sequenceFlow sourceRef="externalSystemCall" targetRef="holidayApprovedTask"/>
+
+
+        <!-- 定义的用户任务节点 key, 指定了 任务执行人 [assignee] 关键字  通过el表达式 ${val} 通过创建流程传入  可以是用户id或者 用户组id } -->
+        <userTask id="holidayApprovedTask" name="假期允许" flowable:assignee="${employee}"/>
+        <sequenceFlow sourceRef="holidayApprovedTask" targetRef="asKWage"/>
+
+
+        <userTask id="asKWage" name="要工资" flowable:assignee="${employee}"/>
+        <sequenceFlow sourceRef="asKWage" targetRef="approveEnd"/>
+
+        <!-- 如果拒绝了触发的 服务任务  通过el表达式绑定了 一个spring bean("rejectService") 里有一个 sendEmail()的方法 能不能加参数待定   -->
+        <serviceTask id="sendRejectionMail" name="发送拒绝邮件"
+                     flowable:expression="#{rejectService.sendEmail}"/>
+        <sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd"/>
+
+        <!-- 结束事件 -->
+        <endEvent id="approveEnd"/>
+
+        <!-- 拒绝结束节点  -->
+        <endEvent id="rejectEnd"/>
+
+    </process>
+
+</definitions>
